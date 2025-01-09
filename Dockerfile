@@ -34,11 +34,4 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
-#COPY . /var/app
-#WORKDIR /var/app
-
-#RUN chown -R www-data:www-data /var/www/html
-
-#RUN composer install
-
 CMD ["sh", "/start.sh"]

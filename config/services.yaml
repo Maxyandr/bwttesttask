@@ -1,0 +1,45 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    GuzzleHttp\ClientInterface:
+        class: 'GuzzleHttp\Client'
+
+    App\Processor\FileProcessor\Processor\JsonFileProcessor:
+        tags:
+            - { name: 'file_processor.factory', file_type: 'json_row' }
+
+    App\Processor\FileProcessor\Processor\CsvFileProcessor:
+        tags:
+            - { name: 'file_processor.factory', file_type: 'csv'  }
+
+    App\Processor\FileProcessor\Handler\FileProcessorHandler:
+        arguments:
+            - !tagged_iterator { tag: 'file_processor.factory', index_by: 'file_type' }
+
+
+    App\Client\Request\Factory\ExchangeRatesRequestFactory:
+        arguments:
+            $apiKey: '%env(API_KEY_FOR_EXCHANGE_RATES)%'
+            $apiHost: '%env(HOST_FOR_EXCHANGE_RATES)%'

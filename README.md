@@ -31,7 +31,7 @@ As I understand it is the same data provider like https://api.exchangeratesapi.i
 
 ## Testing the Project
 
-Before running the tests, ensure all the Docker containers are up and running. The tests can be run with this command:
+The tests can be run with this command:
 
 ```bash
   make test

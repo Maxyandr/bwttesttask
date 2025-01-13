@@ -6,7 +6,7 @@
 1. Open terminal.
 2. Navigate to the directory where your project is located.
 3. You should have installed Docker
-4To build the Docker image for the project, run:
+4. To build the Docker image for the project, run:
 
 ```bash
   make build
@@ -24,6 +24,10 @@ Run this command (to proper run environmental variables should be added - see [.
 
 This command will run the `transaction` Composer script in a Docker container and remove the container afterwards.
 By default test file with transaction is used [test_file.txt](test_file.txt)
+
+BinList has limitation of 4 requests per hour for free. I didn't implement authentication for that service. 
+Example of header authentication was implemented for Exchange rates based on documentation (for https://api.apilayer.com/exchangerates_data API). 
+As I understand it is the same data provider like https://api.exchangeratesapi.io/.
 
 ## Testing the Project
 
